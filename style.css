@@ -77,7 +77,8 @@ body {
 
 .character_spritesheet {
   position: absolute;
-  background: url("./assets/run.png") no-repeat no-repeat;
+  background: url("https://res.cloudinary.com/https-pilot-tune-herokuapp-com/image/upload/v1675461985/run_lmgso6.png")
+    no-repeat no-repeat;
   background-size: 100%;
   width: calc(var(--grid-cell) * 24);
   height: calc(var(--grid-cell) * 8);
