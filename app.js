@@ -50,8 +50,8 @@ const placeCharacter = () => {
     y = bottomLimit;
   }
 
-  var camera_left = (pixelSize * 66) / 2;
-  var camera_top = (pixelSize * 42) / 2;
+  var camera_left = pixelSize * 66;
+  var camera_top = pixelSize * 42;
 
   map.style.transform = `translate3d( ${-x * pixelSize + camera_left}px, ${
     -y * pixelSize + camera_top
@@ -94,4 +94,46 @@ document.addEventListener("keyup", (e) => {
   if (index > -1) {
     held_directions.splice(index, 1);
   }
+});
+
+/* Touch controls */
+document.addEventListener("touchstart", (e) => {
+  //if user touches the screen to the right of the character, move right
+  const x = e.touches[0].clientX - window.innerWidth / 2;
+  const y = e.touches[0].clientY - window.innerHeight / 2;
+  console.log(x, "x");
+  console.log(y, "y");
+  if (e.touches[0].clientX > window.innerWidth / 2 && x > 100) {
+    held_directions.unshift(directions.right);
+  } else if (e.touches[0].clientX < window.innerWidth / 2 && x < -70) {
+    held_directions.unshift(directions.left);
+  }
+  if (e.touches[0].clientY > window.innerHeight / 2 && y > 100) {
+    held_directions.unshift(directions.down);
+  } else if (e.touches[0].clientY < window.innerHeight / 2 && y < -200) {
+    held_directions.unshift(directions.up);
+  }
+  //if user touches the screen to the right of the character, move right
+});
+
+document.addEventListener("touchstart", (e) => {
+  //if user touches the screen to the right of the character, move right
+});
+
+// document.addEventListener("touchstart", (e) => {
+//   //if user touches the screen to the right of the character, move right
+//   if (e.touches[0].clientY > window.innerHeight / 2) {
+//     held_directions.unshift(directions.down);
+//   }
+// });
+
+// document.addEventListener("touchstart", (e) => {
+//   //if user touches the screen to the above of the character, move up
+//   if (e.touches[0].clientY < window.innerHeight / 2) {
+//     held_directions.unshift(directions.up);
+//   }
+// });
+
+document.addEventListener("touchend", (e) => {
+  held_directions.length = 0;
 });
