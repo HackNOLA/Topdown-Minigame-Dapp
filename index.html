@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" /> -->
+
     <link rel="stylesheet" href="style.css">
     <script src="node_modules/web3/dist/web3.min.js"></script>
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
@@ -14,23 +16,45 @@
 
 <body>
     <script defer type="module" src="get-ether.js"></script>
+    <div id="all-contents">
+        <nav>
+            <div class="wallet-container">
+                <div class="wallet address">
+                    <p>Wallet Address:</p>
+                    <p id="wallet-address"></p>
+                </div>
+                <div class="wallet balance">
+                    <p>Wallet Balance</p>
+                    <p id="wallet-balance"></p>
+                </div>
+                <!-- score of the player -->
+                <div class="wallet score">
+                    <p>Score</p>
+                    <p id="wallet-score"></p>
+                </div>
 
-    <div class="camera">
-        <div class="map pixel-art">
-            <div class="character" facing="down" walking="true">
-                <div class="shadow pixel-art"></div>
-                <div class="character_spritesheet pixel-art"></div>
-            </div>
-            <div>
-                <ul class="collectables">
-                    <li class="collectable"></li>
-                    <li class="collectable"></li>
-                    <li class="collectable"></li>
-                    <li class="collectable"></li>
-                    <li class="collectable"></li>
-                    <li class="collectable"></li>
-                    <li class="collectable"></li>
-                </ul>
+                <!-- button to save progress -->
+                <div class="wallet save">
+                    <button type="button" class="nes-btn is-success">Save</button>
+                </div>
+        </nav>
+        <div class="camera">
+            <div class="map pixel-art">
+                <div class="character" facing="down" walking="true">
+                    <div class="shadow pixel-art"></div>
+                    <div class="character_spritesheet pixel-art"></div>
+                </div>
+                <div>
+                    <ul class="collectables">
+                        <li class="collectable"></li>
+                        <li class="collectable"></li>
+                        <li class="collectable"></li>
+                        <li class="collectable"></li>
+                        <li class="collectable"></li>
+                        <li class="collectable"></li>
+                        <li class="collectable"></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

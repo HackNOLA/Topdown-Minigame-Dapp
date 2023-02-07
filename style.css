@@ -33,17 +33,10 @@ body {
 }
 
 .camera {
-  width: calc(var(--pixel-size) * 320);
-  height: calc(var(--pixel-size) * 288);
+  width: calc(var(--pixel-size) * 240);
+  height: calc(var(--pixel-size) * 221);
   overflow: hidden;
   background-image: url(https://t3.ftcdn.net/jpg/04/43/69/32/360_F_443693248_FFOUon01HIYUVLVPFIyhrzDlbmWN8XKq.jpg);
-
-  /* background: #170e5f; */
-  /* background: url(https://i.imgur.com/8ZQ2Z0C.png);
-  background-size: var(--grid-cell) var(--grid-cell);
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: 0 auto; */
 }
 
 .map {
@@ -106,20 +99,7 @@ body {
   animation: walkAnimation 0.6s steps(4) infinite;
 }
 
-.collectable[spinning="true"] {
-  animation: spinAnimation 0.6s steps(8) infinite;
-}
-
 @keyframes walkAnimation {
-  from {
-    transform: translate3d(0%, 0%, 0);
-  }
-  to {
-    transform: translate3d(-100%, 0%, 0);
-  }
-}
-
-@keyframes spinAnimation {
   from {
     transform: translate3d(0%, 0%, 0);
   }
@@ -130,4 +110,25 @@ body {
 
 ul {
   list-style-type: none;
+}
+
+/* Navbar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-container {
+  display: flex;
+  align-items: center;
+}
+
+.wallet {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
 }
