@@ -6,16 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="node_modules/web3/dist/web3.min.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
     <script type="module" src="app.js"></script>
     <title>Document</title>
 </head>
 
 <body>
+    <script defer type="module" src="get-ether.js"></script>
+
     <div class="camera">
         <div class="map pixel-art">
             <div class="character" facing="down" walking="true">
                 <div class="shadow pixel-art"></div>
                 <div class="character_spritesheet pixel-art"></div>
+            </div>
+            <div>
+                <ul class="collectables">
+                    <li class="collectable"></li>
+                    <li class="collectable"></li>
+                    <li class="collectable"></li>
+                    <li class="collectable"></li>
+                    <li class="collectable"></li>
+                    <li class="collectable"></li>
+                    <li class="collectable"></li>
+                </ul>
             </div>
         </div>
     </div>

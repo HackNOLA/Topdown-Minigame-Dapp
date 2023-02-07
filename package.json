@@ -1,0 +1,25 @@
+{
+  "name": "topdown-rpg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asp2131/topdopwn-rpg.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asp2131/topdopwn-rpg/issues"
+  },
+  "homepage": "https://github.com/asp2131/topdopwn-rpg#readme",
+  "devDependencies": {
+    "ethers": "^6.0.2"
+  },
+  "dependencies": {
+    "web3": "^1.8.2"
+  }
+}

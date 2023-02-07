@@ -1,5 +1,6 @@
 const character = document.querySelector(".character");
 const map = document.querySelector(".map");
+const collectables = document.querySelectorAll(".collectable");
 
 let x = 100;
 let y = 50;
@@ -61,8 +62,55 @@ const placeCharacter = () => {
   }px, 0 )`;
 };
 
+const renderCollectables = () => {
+  let pixelSize = parseInt(
+    getComputedStyle(document.documentElement).getPropertyValue("--pixel-size")
+  );
+  for (let collectable of collectables) {
+    collectable.style.transform = `translate3d( ${
+      Math.random() * 500 * pixelSize
+    }px, ${Math.random() * 500 * pixelSize}px, 0 )`;
+  }
+};
+
+const placeCollectables = () => {
+  renderCollectables();
+  setInterval(() => {
+    renderCollectables();
+    for (let collectable of collectables) {
+      collectable.style.display = "block";
+    }
+  }, 5000);
+};
+
+placeCollectables();
+
+const checkCollision = () => {
+  for (let collectable of collectables) {
+    const collectableRect = collectable.getBoundingClientRect();
+    const characterRect = character.getBoundingClientRect();
+    if (
+      collectableRect.top < characterRect.bottom &&
+      collectableRect.bottom > characterRect.top &&
+      collectableRect.left < characterRect.right &&
+      collectableRect.right > characterRect.left
+    ) {
+      collectable.style.display = "none";
+    }
+  }
+};
+
+const redisplayCollectables = () => {
+  for (let collectable of collectables) {
+  }
+};
+
 const step = () => {
+  checkCollision();
   placeCharacter();
+  // setInterval(() => {
+  //   redisplayCollectables();
+  // }, 10000);
   window.requestAnimationFrame(() => step());
 };
 
@@ -115,24 +163,6 @@ document.addEventListener("touchstart", (e) => {
   }
   //if user touches the screen to the right of the character, move right
 });
-
-document.addEventListener("touchstart", (e) => {
-  //if user touches the screen to the right of the character, move right
-});
-
-// document.addEventListener("touchstart", (e) => {
-//   //if user touches the screen to the right of the character, move right
-//   if (e.touches[0].clientY > window.innerHeight / 2) {
-//     held_directions.unshift(directions.down);
-//   }
-// });
-
-// document.addEventListener("touchstart", (e) => {
-//   //if user touches the screen to the above of the character, move up
-//   if (e.touches[0].clientY < window.innerHeight / 2) {
-//     held_directions.unshift(directions.up);
-//   }
-// });
 
 document.addEventListener("touchend", (e) => {
   held_directions.length = 0;
