@@ -1,4 +1,4 @@
-import { saveScore, getScore } from "./use-contract";
+import { saveScore, getScore } from "./use-contract.js";
 
 const character = document.querySelector(".character");
 const map = document.querySelector(".map");

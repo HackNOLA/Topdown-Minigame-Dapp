@@ -1,8 +1,6 @@
-import { contractABI, contractAddress } from "./abi";
+import { contractABI, contractAddress } from "./abi.js";
 
 async function getContractFactory() {
-  const network = "https://api.avax-test.network/ext/bc/C/rpc";
-
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   let contract = null;
