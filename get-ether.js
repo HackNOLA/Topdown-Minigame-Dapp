@@ -6,14 +6,14 @@ if (window.ethereum) {
   const network = "https://api.avax-test.network/ext/bc/C/rpc";
   const provider = ethers.getDefaultProvider(network);
   const address = accounts[0];
-  document.getElementById("wallet-address").innerHTML = address;
 
   const main = async () => {
     provider.getBalance(address).then((balance) => {
       // convert a currency unit from wei to ether
       const balanceInAvax = ethers.utils.formatEther(balance);
-      document.getElementById("wallet-balance").innerHTML = balanceInAvax;
-      console.log(`balance: ${balanceInAvax} AVAX`);
+      // document.getElementById("wallet-balance").innerHTML = balanceInAvax;
+      //Contract address: 0x6d5E1A4606810F50Ef0839310C17949b3eF96d2D
+      // console.log(`balance: ${balanceInAvax} AVAX`);
       // balance: 2 AVAX
     });
   };

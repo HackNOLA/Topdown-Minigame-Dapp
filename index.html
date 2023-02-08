@@ -8,7 +8,6 @@
     <!-- <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" /> -->
 
     <link rel="stylesheet" href="style.css">
-    <script src="node_modules/web3/dist/web3.min.js"></script>
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
     <script type="module" src="app.js"></script>
     <title>Document</title>
@@ -19,14 +18,10 @@
     <div id="all-contents">
         <nav>
             <div class="wallet-container">
-                <div class="wallet address">
-                    <p>Wallet Address:</p>
-                    <p id="wallet-address"></p>
-                </div>
-                <div class="wallet balance">
-                    <p>Wallet Balance</p>
+                <!-- <div class="wallet balance">
+                    <p>Wallet Balance:</p>
                     <p id="wallet-balance"></p>
-                </div>
+                </div> -->
                 <!-- score of the player -->
                 <div class="wallet score">
                     <p>Score</p>
@@ -35,7 +30,7 @@
 
                 <!-- button to save progress -->
                 <div class="wallet save">
-                    <button type="button" class="nes-btn is-success">Save</button>
+                    <button type="button" class="save-button">Save</button>
                 </div>
         </nav>
         <div class="camera">

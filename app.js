@@ -1,9 +1,19 @@
+import { saveScore, getScore } from "./use-contract";
+
 const character = document.querySelector(".character");
 const map = document.querySelector(".map");
 const collectables = document.querySelectorAll(".collectable");
 
 let x = 100;
 let y = 50;
+
+let initialScore;
+let globalScore;
+getScore().then((score) => {
+  initialScore = score;
+  document.getElementById("wallet-score").innerHTML = initialScore;
+  globalScore = score;
+});
 const held_directions = [];
 
 let speed = 1;
@@ -96,21 +106,15 @@ const checkCollision = () => {
       collectableRect.right > characterRect.left
     ) {
       collectable.style.display = "none";
+      globalScore++;
+      document.getElementById("wallet-score").innerHTML = globalScore;
     }
-  }
-};
-
-const redisplayCollectables = () => {
-  for (let collectable of collectables) {
   }
 };
 
 const step = () => {
   checkCollision();
   placeCharacter();
-  // setInterval(() => {
-  //   redisplayCollectables();
-  // }, 10000);
   window.requestAnimationFrame(() => step());
 };
 
@@ -166,4 +170,10 @@ document.addEventListener("touchstart", (e) => {
 
 document.addEventListener("touchend", (e) => {
   held_directions.length = 0;
+});
+
+/* create click hander for the button with the class save-button */
+const saveButton = document.querySelector(".save-button");
+saveButton.addEventListener("click", () => {
+  saveScore(globalScore - initialScore);
 });
