@@ -517,6 +517,113 @@ const directions = {
 
 Here we are declaring a variable called `directions` and setting its value to an object with four properties. The properties are `up`, `down`, `left` and `right`.
 
+
+<details>
+<summary>Click to expand!</summary>
+
+```js
+const character = document.querySelector(".character");
+const map = document.querySelector(".map");
+```
+
+Here we are selecting the character and map elements from our HTML file.
+
+```js
+let x = 100;
+let y = 50;
+```
+
+Here we are declaring two variables `x` and `y` and setting their values to `100` and `50` respectively.
+
+```js
+const held_directions = [];
+
+let speed = 1;
+```
+
+Here we are declaring two variables `held_directions` and `speed` and setting their values to an empty array and `1` respectively. We will use the `held_directions` array to store the direction in which the player is moving. We will use the `speed` variable to store the speed at which the player is moving.
+
+```js
+function placeCharacter() {
+  let pixelSize = parseInt(
+    getComputedStyle(document.documentElement).getPropertyValue("--pixel-size")
+  );
+```
+
+Here we are declaring a function called `placeCharacter` and inside it we are declaring a variable called `pixelSize` and setting its value to the value of the `--pixel-size` CSS variable.
+
+```js
+const held_direction = held_directions[0];
+if (held_direction) {
+  if (held_direction) {
+    if (held_direction === directions.right) {
+      x += speed;
+    }
+    if (held_direction === directions.left) {
+      x -= speed;
+    }
+    if (held_direction === directions.down) {
+      y += speed;
+    }
+    if (held_direction === directions.up) {
+      y -= speed;
+    }
+    character.setAttribute("facing", held_direction);
+  }
+  character.setAttribute("facing", held_direction);
+}
+character.setAttribute("walking", held_direction ? "true" : "false");
+```
+
+Here we are checking if the `held_direction` variable is not empty. If it is not empty then we are checking if the `held_direction` variable is equal to the `directions.right` variable. If it is equal to the `directions.right` variable then we are adding the `speed` variable to the `x` variable. We are doing the same for the `directions.left`, `directions.down` and `directions.up` variables.
+
+```js
+var leftLimit = -8;
+var rightLimit = 16 * 24 + 8;
+var topLimit = -8;
+var bottomLimit = 16 * 18;
+if (x < leftLimit) {
+  x = leftLimit;
+}
+if (x > rightLimit) {
+  x = rightLimit;
+}
+if (y < topLimit) {
+  y = topLimit;
+}
+if (y > bottomLimit) {
+  y = bottomLimit;
+}
+```
+
+Here we are checking if the `x` variable is less than the `leftLimit` variable. If it is less than the `leftLimit` variable then we are setting the `x` variable to the `leftLimit` variable. We are doing the same for the `rightLimit`, `topLimit` and `bottomLimit` variables.
+
+```js
+  var camera_left = pixelSize * 66;
+  var camera_top = pixelSize * 42;
+
+  map.style.transform = `translate3d( ${-x * pixelSize + camera_left}px, ${
+    -y * pixelSize + camera_top
+  }px, 0 )`;
+  character.style.transform = `translate3d( ${x * pixelSize}px, ${
+    y * pixelSize
+  }px, 0 )`;
+}
+```
+
+Here we are setting the `map.style.transform` and `character.style.transform` CSS properties to the values of the `x` and `y` variables.
+
+```js
+const directions = {
+  up: "up",
+  down: "down",
+  left: "left",
+  right: "right",
+};
+```
+
+Here we are declaring a variable called `directions` and setting its value to an object with four properties. The properties are `up`, `down`, `left` and `right`.
+
 ```js
 const keys = {
   37: directions.left,
@@ -524,6 +631,73 @@ const keys = {
   39: directions.right,
   40: directions.down,
 };
+```
+
+Here we are declaring a variable called `keys` and setting its value to an object with four properties. The properties are `37`, `38`, `39` and `40`. The values of the properties are the values of the `directions` variable.
+
+```js
+document.addEventListener("keydown", (e) => {
+  const direction = keys[e.keyCode];
+  if (direction) {
+    held_directions.unshift(direction);
+  }
+});
+```
+
+Here we are adding an event listener to the `document` object. The event listener is for the `keydown` event. When the `keydown` event is fired we are checking if the `direction` variable is not empty. If it is not empty then we are adding the `direction` variable to the `held_directions` array.
+
+```js
+document.addEventListener("keyup", (e) => {
+  const direction = keys[e.keyCode];
+  if (direction) {
+    held_directions.splice(held_directions.indexOf(direction), 1);
+  }
+});
+```
+
+Here we are adding an event listener to the `document` object. The event listener is for the `keyup` event. When the `keyup` event is fired we are checking if the `direction` variable is not empty. If it is not empty then we are removing the `direction` variable from the `held_directions` array.
+
+```js
+document.addEventListener("touchstart", (e) => {
+  //if user touches the screen to the right of the character, move right
+  const x = e.touches[0].clientX - window.innerWidth / 2;
+  const y = e.touches[0].clientY - window.innerHeight / 2;
+  console.log(x, "x");
+  console.log(y, "y");
+  if (e.touches[0].clientX > window.innerWidth / 2 && x > 100) {
+    held_directions.unshift(directions.right);
+  } else if (e.touches[0].clientX < window.innerWidth / 2 && x < -70) {
+    held_directions.unshift(directions.left);
+  }
+  if (e.touches[0].clientY > window.innerHeight / 2 && y > 100) {
+    held_directions.unshift(directions.down);
+  } else if (e.touches[0].clientY < window.innerHeight / 2 && y < -200) {
+    held_directions.unshift(directions.up);
+  }
+});
+```
+
+Here we are adding an event listener to the `document` object. The event listener is for the `touchstart` event. This enables touc controls for mobile functionality. When a user touches the screen we are checking if the `x` variable is greater than the `window.innerWidth` variable divided by two. If it is greater than the `window.innerWidth` variable divided by two then we are adding the `directions.right` variable to the `held_directions` array. We are doing the same for the `directions.left`, `directions.down` and `directions.up` variables.
+
+```js
+document.addEventListener("touchend", (e) => {
+  held_directions.length = 0;
+});
+```
+
+Here we are adding an event listener to the `document` object. The event listener is for the `touchend` event. When a user stops touching the screen we are setting the `held_directions` array to an empty array.
+
+```js
+function update() {
+  placeCharacter();
+  window.requestAnimationFrame(() => update());
+}
+```
+
+Here we are declaring a function called `update` and inside it we are calling the `placeCharacter` function. We are also calling the `requestAnimationFrame` function and passing the `update` function as an argument. This will call the `update` function every frame.
+
+```js
+update();
 ```
 
 Here we are declaring a variable called `keys` and setting its value to an object with four properties. The properties are `37`, `38`, `39` and `40`. The values of the properties are the values of the `directions` variable.
@@ -741,8 +915,132 @@ function update() {
 
 In this tutorial, we learned how to create a simple 2D game using HTML, CSS, and JavaScript. We learned how to create a map using CSS grid. We learned how to create a character using CSS spritesheets. We learned how to move the character around the map using JavaScript. We learned how to add collectables to the map. We learned how to check for collisions between the character and the collectables.
 
+<br>
+<br>
+<br>
+<br>
+
+## Part 2: Web3 Integration
+
+In this part of the tutorial, we are going to be integrating Web3 into our game. We are going to be using Web3 to connect to the Avalanche blockchain. Instead of connecting to actual Avalanche blockchain, we'll be on a testnet so that we don't use any real cryptocurrency. We are going to be using Web3 to interact with our smart contract. We are going to be using Web3 to send transactions to our smart contract. We are going to be using Web3 to read data from our smart contract.
+
+<br>
+<br>
+
+### TODO 1: Connect Wallet to Fuji Testnet
+
+1. Make sure you are logged into your metamask account. If you are not logged into metamask, then you will not be able to connect to the Avalanche blockchain and deploy your smart contract.
+
+<br>
+<br>
+
+2. Once you are logged into metamask, go to [Chainlist](https://chainlist.org/chain/43113) and click on the `Connect Wallet` on one of the Fuji rpc nodes (preferably the one with the lowest latency or verified privacy). This will connect your metamask account to the Avalanche Fuji testnet.
+
+<!-- Include image of where of the Connect Wallet button is located -->
+<img src="https://res.cloudinary.com/https-pilot-tune-herokuapp-com/image/upload/v1676405372/Screen_Shot_2023-02-14_at_2.06.38_PM_orw0mc.png" width="500px" />
+
+<br>
+<br>
+
+3. Now we are going to be getting fake AVAX tokens from the [Avalanche Fuji Faucet](https://faucet.avax-test.network/). Make sure your wallet is connected to the site.Afterwards, click on the `Request 2 AVAX` button and then verify the transaction in metamask. This will give you 2 fake AVAX tokens. Your metamask should look like this:
+
+  <img src="https://res.cloudinary.com/https-pilot-tune-herokuapp-com/image/upload/v1676406127/Screen_Shot_2023-02-14_at_2.21.32_PM_olo0fa.png" width="250px" />
+
+<br>
+<br>
+
+### TODO 2: Create a Smart Contract
+
+1. Within the `contracts` folder, create a new file called `Player.sol`. The contract is already created for you. However, lets disect the [Solidity](https://soliditylang.org/) in `Player.sol` file.
+
+```solidity
+pragma solidity ^0.8.9;
+```
+
+- This is the version of Solidity that we are using. We are using version 0.8.9.
+
+```solidity
+contract Player {
+```
+
+- This is the contract declaration. We are creating a contract called `Player`.
+
+```solidity
+  address payable public owner;
+  uint256 public score;
+```
+
+- These are the state variables. We are creating a `uint` called `unlockTime`, an `address` called `owner`, and a `uint256` called `score`.
+
+```solidity
+   function editScore(uint256 amount) public onlyOwner {
+        score = amount;
+    }
+```
+
+- This is a function called `editScore`. This function takes in a `uint256` called `amount` and sets the `score` state variable to the `amount` that is passed in.
+
+```solidity
+    function getScore() public view returns (uint256) {
+        return score;
+    }
+```
+
+- This is a function called `getScore`. This function returns the `score` state variable.
+
+```solidity
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can execute this method.");
+        _;
+    }
+```
+
+- This is a modifier called `onlyOwner`. This modifier makes sure that the `owner` is the one calling the function.
+
+```solidity
+    constructor() {
+        owner = payable(msg.sender);
+    }
+  }
+```
+
+- This is the constructor. This is called when the contract is deployed. This sets the `owner` state variable to the address of the person who deployed the contract.
+
+<br>
+<br>
+
+### TODO 3: Deploy Smart Contract
+
+1. Now we are going to be deploying our smart contract to the Avalanche Fuji testnet using a tool called Hardhat. Hardhat is a development environment to compile, deploy, test, and debug your Ethereum software.
+
+- First, we need to copy our wallet's private key. Go to metamask and click on the `Account Details` button. Then click on the `Export Private Key` button. Paste the private key into the `.env` file. Your `.env` file should look like this:
+
+```
+PRIVATE_KEY= <key goes here>
+```
+
+- Next, we are going to compile our smart contract. Compiling our smart contract will create a `Player.json` file in the `artifacts/contracts` folder. Run the following command in the terminal:
+
+```
+npx hardhat compile
+```
+
+- Once the contract is compiled, we are going to deploy our smart contract to the Avalanche Fuji testnet. Run the following command in the terminal:
+
+```
+npx hardhat run scripts/deploy.js --network fuji
+```
+
+- Once the contract is deployed, you should see the contract address in the terminal. Copy the contract address and paste it in the `abi.js` file so that it's assigned to the `contractAddress` variable. Your `abi.js` file should look similar to this:
+
+```js
+export const contractAddress = "0x6d5E1A4606810F50Ef0839310C17949b3eF96d2D";
+```
+
+
 <!--
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
 
 Try running some of the following tasks:
+-->
  -->

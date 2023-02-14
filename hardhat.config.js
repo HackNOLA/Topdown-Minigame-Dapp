@@ -1,6 +1,7 @@
 // import "@nomiclabs/hardhat-ethers";
 require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-etherscan");
+require("dotenv").config();
 
 //* Notes for deploying the smart contract on your own subnet
 //* More info on subnets: https://docs.avax.network/subnets
@@ -34,9 +35,7 @@ module.exports = {
       url: "https://api.avax-test.network/ext/bc/C/rpc",
       gasPrice: 225000000000,
       chainId: 43113,
-      accounts: [
-        "321d4bfd972baff2d03eac89039ca6d0df104da8d05b7b04b10cd5fd2f7447fb",
-      ],
+      accounts: [process.env.PRIVATE_KEY],
     },
   },
 };
