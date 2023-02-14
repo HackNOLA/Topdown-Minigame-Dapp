@@ -741,8 +741,130 @@ function update() {
 
 In this tutorial, we learned how to create a simple 2D game using HTML, CSS, and JavaScript. We learned how to create a map using CSS grid. We learned how to create a character using CSS spritesheets. We learned how to move the character around the map using JavaScript. We learned how to add collectables to the map. We learned how to check for collisions between the character and the collectables.
 
+<br>
+<br>
+<br>
+<br>
+
+## Part 2: Web3 Integration
+
+In this part of the tutorial, we are going to be integrating Web3 into our game. We are going to be using Web3 to connect to the Avalanche blockchain. Instead of connecting to actual Avalanche blockchain, we'll be on a testnet so that we don't use any real cryptocurrency. We are going to be using Web3 to interact with our smart contract. We are going to be using Web3 to send transactions to our smart contract. We are going to be using Web3 to read data from our smart contract.
+
+<br>
+<br>
+
+### TODO 1: Connect Wallet to Fuji Testnet
+
+1. Make sure you are logged into your metamask account. If you are not logged into metamask, then you will not be able to connect to the Avalanche blockchain and deploy your smart contract.
+
+<br>
+<br>
+
+2. Once you are logged into metamask, go to [Chainlist](https://chainlist.org/chain/43113) and click on the `Connect Wallet` on one of the Fuji rpc nodes (preferably the one with the lowest latency or verified privacy). This will connect your metamask account to the Avalanche Fuji testnet.
+
+<!-- Include image of where of the Connect Wallet button is located -->
+<img src="https://res.cloudinary.com/https-pilot-tune-herokuapp-com/image/upload/v1676405372/Screen_Shot_2023-02-14_at_2.06.38_PM_orw0mc.png" width="500px" />
+
+<br>
+<br>
+
+3. Now we are going to be getting fake AVAX tokens from the [Avalanche Fuji Faucet](https://faucet.avax-test.network/). Make sure your wallet is connected to the site.Afterwards, click on the `Request 2 AVAX` button and then verify the transaction in metamask. This will give you 2 fake AVAX tokens. Your metamask should look like this:
+
+  <img src="https://res.cloudinary.com/https-pilot-tune-herokuapp-com/image/upload/v1676406127/Screen_Shot_2023-02-14_at_2.21.32_PM_olo0fa.png" width="250px" />
+
+<br>
+<br>
+
+### TODO 2: Create a Smart Contract
+
+1. Within the `contracts` folder, create a new file called `Player.sol`. The contract is already created for you. However, lets disect the [Solidity](https://soliditylang.org/) in `Player.sol` file.
+
+```solidity
+pragma solidity ^0.8.9;
+```
+
+- This is the version of Solidity that we are using. We are using version 0.8.9.
+
+```solidity
+contract Player {
+```
+
+- This is the contract declaration. We are creating a contract called `Player`.
+
+```solidity
+  address payable public owner;
+  uint256 public score;
+```
+
+- These are the state variables. We are creating a `uint` called `unlockTime`, an `address` called `owner`, and a `uint256` called `score`.
+
+```solidity
+   function editScore(uint256 amount) public onlyOwner {
+        score = amount;
+    }
+```
+
+- This is a function called `editScore`. This function takes in a `uint256` called `amount` and sets the `score` state variable to the `amount` that is passed in.
+
+```solidity
+    function getScore() public view returns (uint256) {
+        return score;
+    }
+```
+
+- This is a function called `getScore`. This function returns the `score` state variable.
+
+```solidity
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can execute this method.");
+        _;
+    }
+```
+
+- This is a modifier called `onlyOwner`. This modifier makes sure that the `owner` is the one calling the function.
+
+```solidity
+    constructor() {
+        owner = payable(msg.sender);
+    }
+  }
+```
+
+- This is the constructor. This is called when the contract is deployed. This sets the `owner` state variable to the address of the person who deployed the contract.
+
+<br>
+<br>
+
+### TODO 3: Deploy Smart Contract
+
+1. Now we are going to be deploying our smart contract to the Avalanche Fuji testnet using a tool called Hardhat. Hardhat is a development environment to compile, deploy, test, and debug your Ethereum software.
+
+- First, we need to copy our wallet's private key. Go to metamask and click on the `Account Details` button. Then click on the `Export Private Key` button. Paste the private key into the `.env` file. Your `.env` file should look like this:
+
+```
+PRIVATE_KEY= <key goes here>
+```
+
+- Next, we are going to compile our smart contract. Compiling our smart contract will create a `Player.json` file in the `artifacts/contracts` folder. Run the following command in the terminal:
+
+```
+npx hardhat compile
+```
+
+- Once the contract is compiled, we are going to deploy our smart contract to the Avalanche Fuji testnet. Run the following command in the terminal:
+
+```
+npx hardhat run scripts/deploy.js --network fuji
+```
+
+- Once the contract is deployed, you should see the contract address in the terminal. Copy the contract address and paste it in the `abi.js` file so that it's assigned to the `contractAddress` variable. Your `abi.js` file should look similar to this:
+
+```js
+export const contractAddress = "0x6d5E1A4606810F50Ef0839310C17949b3eF96d2D";
+```
+
 <!--
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
 
 Try running some of the following tasks:
- -->
+-->
